@@ -1,0 +1,15 @@
+## Dynamic configuration
+## Dynamic configuration
+http:
+  routers:
+    Router2:
+      # won't listen to entry point web
+      rule: "Host(`hackmd1.elfjane.com`)"
+      service: service2
+      tls:
+        certResolver: myresolver2
+  services:
+    service2:
+      loadBalancer:
+        servers:
+        - url: "http://172.16.1.9:3000/"

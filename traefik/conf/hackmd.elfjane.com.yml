@@ -1,0 +1,18 @@
+## Dynamic configuration
+## Dynamic configuration
+http:
+  routers:
+    Router1:
+      # won't listen to entry point web
+      #entryPoints:
+      #  - "web"
+      #  - "websecure"
+      rule: "Host(`hackmd.elfjane.com`)"
+      service: service1
+      tls:
+        certResolver: myresolver
+  services:
+    service1:
+      loadBalancer:
+        servers:
+        - url: "http://172.16.1.9:3000/"
