@@ -1,0 +1,31 @@
+version: '3.3'
+services:
+    web:
+        image: nginx:latest
+        restart: always
+        ports:
+            - "8205:80"
+        volumes:
+            - "~/web/bloxmith_bi:/var/www/web/bloxmith_bi"
+            - "~/web/logs/bloxmith_bi/error:/var/log/nginx/error/"
+            - "~/web/logs/bloxmith_bi/access:/var/log/nginx/access/"
+            - "./default.conf:/etc/nginx/conf.d/default.conf"
+        links:
+            - php
+        extra_hosts:
+            - "bloxmith_bi.elfjane.com:192.168.181.131"
+            - "bloxmith_api.elfjane.com:192.168.181.131"
+    php:
+        build: php-build
+        restart: always
+        volumes:
+            - ~/web/bloxmith_bi:/var/www/web/bloxmith_bi
+            - "~/web/logs/bloxmith_bi/logs:/var/www/web/bloxmith_bi/logs"
+            - "~/web/logs/bloxmith_bi/smarty2/admin_lte3/templates_c:/var/www/web/bloxmith_bi/views/smarty2/admin_lte3/templates_c"
+            - ./Smarty-2.6.28:/usr/local/lib/php/smarty
+            - ./Smarty-2.6.28:/usr/local/lib/php/smarty2
+        extra_hosts:
+            - "bloxmith_bi.elfjane.com:192.168.181.131"
+            - "bloxmith_api.elfjane.com:192.168.181.131"
+
+

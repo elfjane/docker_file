@@ -1,0 +1,12 @@
+.git
+vendor
+.gitignore
+logs
+temp
+config
+views/smarty2/admin_lte3/templates_c
+library/xmvc/vendor
+README.md
+languages
+bloxmith_bi_tools
+SQL
