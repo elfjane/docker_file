@@ -1,0 +1,60 @@
+[
+  {
+    "item_url": "api/payment/expert/refundDetailPayment",
+    "item_type": "GET",
+    "item_title": "退款明細",
+    "item_help": "api/payment/expert/refundDetailPayment",
+    "parameter_list": [
+    ],
+    "parameter_uri": [
+      "order_number"
+    ]
+  },
+  {
+    "item_url": "api/payment/expert/refundPayment",
+    "item_type": "POST",
+    "item_title": "退款",
+    "item_help": "api/payment/expert/refundPayment",
+    "parameter_list": [
+      "order_number",
+      "amount",
+      "bank_refund_id"
+    ]
+  },
+  {
+    "item_url": "api/payment/expert/tapPayBindCard",
+    "item_type": "POST",
+    "item_title": "TapPay - 綁定信用卡",
+    "item_help": "api/payment/expert/tayPayBindCard",
+    "parameter_list": [
+      "uid",
+      "prime",
+      "name",
+      "phone_number",
+      "email"
+    ]
+  },
+  {
+    "item_url": "api/payment/expert/tapPayBindCardList",
+    "item_type": "GET",
+    "item_title": "信用卡綁定列表",
+    "item_help": "信用卡綁定列表",
+    "parameter_header": [],
+    "parameter_uri": [
+      "uid"
+    ],
+    "parameter_list": []
+  },
+  {
+    "item_url": "api/payment/expert/remainingInvoice",
+    "item_type": "GET",
+    "item_title": "發票剩餘張數查詢",
+    "item_help": "發票剩餘張數查詢",
+    "parameter_header": [],
+    "parameter_uri": [
+      "year",
+      "trem"
+    ],
+    "parameter_list": []
+  }
+]

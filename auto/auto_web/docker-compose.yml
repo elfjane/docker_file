@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+    web:
+        container_name: "auto-web-nginx"
+        image: nginx:latest
+        restart: always
+        ports:
+            - "8201:80"
+        volumes:
+            - "./default.conf:/etc/nginx/conf.d/default.conf"
+            - "./unittest:/var/www/html"
+        links:
+            - php
+    php:
+        container_name: "leju-auto-web-php"
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: always    
+        volumes:
+            - "./unittest:/var/www/html"
+            - "/auto:/auto"
+        extra_hosts:
+            - "www.leju.com.io:${LOAD_BALANCE_IP}"
+            - "api.leju.com.io:${LOAD_BALANCE_IP}"
+            - "track.leju.com.io:${LOAD_BALANCE_IP}"
+            - "payment.leju.com.io:${LOAD_BALANCE_IP}"
+            - "auto.leju.com.io:${LOAD_BALANCE_IP}"
+            - "pro.leju.com.io:${LOAD_BALANCE_IP}"

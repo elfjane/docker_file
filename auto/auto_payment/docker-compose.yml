@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+    
+    auto: 
+        container_name: "auto_payment"
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+             - "9003:9090"
+             - "9033:9000"
+             - "6203:22"
+        volumes:
+            - "/auto:/auto"
+            - "/var/www/payment:/var/www/payment"
+            - "/var/www/login:/var/www/login"
+            - "/var/www/pro:/var/www/pro"
+            - "/home/elfjane/lejutech:/home/elfjane/lejutech"
+

@@ -1,0 +1,145 @@
+  /payment/expert/getInvoice/{order_number}:
+    get:
+      tags:
+        - Ezpay
+      summary: 透過訂單號碼取得發票資訊
+      description: 透過訂單號碼取得發票資訊
+      operationId: 0a484a79279b53a745b8eae66c9f6021
+      parameters:
+        - name: order_number
+          in: path
+          description: 樂居訂單編號
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 回傳內容
+                    properties:
+                      order_number:
+                        description: 樂居訂單編號
+                        type: string
+                        example: '202211181430'
+                      name:
+                        description: 購買人姓名
+                        type: string
+                        example: AA00000024
+                      uid:
+                        description: 購買人會員id
+                        type: string
+                        example: '21'
+                      email:
+                        description: 購買人電子信箱
+                        type: string
+                        example: alice@Chang.com
+                      invoice_method:
+                        description: >-
+                          開立發票方式 (0:手機條碼載具 / 1:自然人憑證條碼載具 / 2:ezPay電子發票載具 /
+                          3:捐贈發票 / 4:公司用)
+                        type: string
+                        example: '0'
+                      phone_barcode:
+                        description: 手機載具條碼
+                        type: string
+                        example: /ABCDEFG
+                      person_certificate:
+                        description: 自然人憑證條碼載具
+                        type: string
+                        example: AA12345678911111
+                      love_code:
+                        description: 捐贈發票愛心碼
+                        type: string
+                        example: '8850'
+                      business_no:
+                        description: 公司統編號
+                        type: string
+                        example: '24773315'
+                      invoice_status:
+                        description: 發票狀態
+                        type: integer
+                        example: '1'
+                      invoice_category:
+                        description: 發票類型(B2B/B2C)
+                        type: string
+                        example: B2C
+                      invoice_number:
+                        description: 發票號碼
+                        type: string
+                        example: AA00000024
+                      invoice_created_at:
+                        description: 發票開立時間
+                        type: string
+                        example: '2022-12-28 11:38:58'
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object

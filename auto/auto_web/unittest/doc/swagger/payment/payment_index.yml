@@ -1,0 +1,1605 @@
+openapi: 3.0.0
+info:
+  title: Payment金流專案-API文件管理
+  version: 1.0.0
+servers:
+  - url: http://ec2-3-39-30-52.ap-northeast-2.compute.amazonaws.com/api
+paths:
+  /payment/expert/payObjectList:
+    post:
+      tags:
+        - Tappay
+      summary: 達人第一次付款買社區版位,打3D驗證API進行付款
+      description: 達人第一次付款買社區版位,打3D驗證API進行付款
+      operationId: 9102a191b8383abe28292b50eee221f3
+      parameters:
+        - name: prime
+          in: query
+          description: 用卡號所換得的字串，打 tappay getPrime 會拿到
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試prime:
+              summary: 測試prime
+              value: test_3a2fb2b7e892b914a03c95dd4dd5dc7970c908df67a49527c0a648b2bc9
+        - name: order_number
+          in: query
+          description: 樂居訂單編號
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+        - name: details
+          in: query
+          description: 交易品項內容，詐欺檢測器將會以此作為詐欺判定的基準
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+        - name: amount
+          in: query
+          description: 交易總金額
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            '0550':
+              summary: '550'
+              value: '550'
+        - name: uid
+          in: query
+          description: 購買人會員id
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            uid:
+              summary: uid
+              value: '21'
+        - name: name
+          in: query
+          description: 購買人姓名
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            張艾莉絲:
+              summary: 張艾莉絲
+              value: 張艾莉絲
+        - name: phone_number
+          in: query
+          description: 購買人手機號碼，可為 09 開頭的電話或是包含加號之 E.164 格式
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            '0923456789':
+              summary: '0923456789'
+              value: '0923456789'
+            '+886923456789':
+              summary: '+886923456789'
+              value: '+886923456789'
+        - name: email
+          in: query
+          description: 購買人電子信箱
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            alice@Chang.com:
+              summary: alice@Chang.com
+              value: alice@Chang.com
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 回傳內容
+                    properties:
+                      payment_url:
+                        description: 3D驗證付款頁面網址，前端跳轉此網址
+                        type: string
+                        example: >-
+                          https://sandbox-redirect.tappaysdk.com/redirect/9d39546f0897b1b45b6d8d61fc5ce1ba26fd00bb7711b93fa67ca141662ad16b
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: 400
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+  /payment/expert/checkPayment:
+    post:
+      tags:
+        - Tappay
+      summary: callback回來後再次檢查確定是否付款成功
+      description: callback回來後再次檢查確定是否付款成功
+      operationId: c0ad07b6937f1dcd2057dcd56aa517e6
+      parameters:
+        - name: order_number
+          in: query
+          description: 樂居自定義的訂單編號
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            '0120221212000004':
+              summary: '0120221212000004'
+              value: '0120221212000004'
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 打record api成功
+                  data:
+                    description: 回傳內容
+                    properties:
+                      order_number:
+                        description: 樂居自定義的訂單編號
+                        type: string
+                        example: '0120221212000004'
+                      status:
+                        description: 樂居訂單狀態(0:交易開始, 1:待付款, 2:付款成功, 3:付款失敗, 4:錯誤, 5:已退款)
+                        type: integer
+                        example: '2'
+                      tappay_status:
+                        description: tappay 交易代碼
+                        type: integer
+                        example: '2'
+                      tappay_message:
+                        description: tappay 錯誤訊息
+                        type: string
+                        example: End of list
+                    type: object
+                type: object
+        '204':
+          description: 失敗，查無此筆交易
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: 204
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 查無此筆交易
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: 400
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+  /payment/expert/refundPayment:
+    post:
+      tags:
+        - Tappay
+      summary: Tappay 退款 api
+      description: Tappay 退款 api
+      operationId: 6f8b53228a9aefcd16c5634f4485b380
+      parameters:
+        - name: order_number
+          in: query
+          description: 樂居訂單編號
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+        - name: amount
+          in: query
+          description: 退款金額
+          required: true
+          schema:
+            type: string
+          examples:
+            '500':
+              summary: '500'
+              value: '500'
+            placeholder:
+              summary: placeholder
+              value: placeholder
+        - name: bank_refund_id
+          in: query
+          description: 商戶定義的退款紀錄識別碼(需為半形的英數字)，不可重複。支援：玉山銀行, Atome
+          required: false
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            bank_refund_id:
+              summary: bank_refund_id
+              value: Atome
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 回傳內容
+                    properties:
+                      order_number:
+                        description: 樂居訂單編號
+                        type: string
+                        example: '202211181430'
+                      refund_id:
+                        description: 退款紀錄的識別碼
+                        type: string
+                        example: DR202302244d7f3r
+                      refund_amount:
+                        description: 退款金額
+                        type: integer
+                        example: '500'
+                      created_at:
+                        description: 退款日期
+                        type: string
+                        example: '2023-03-07 00:30:01'
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+  /payment/expert/refundDetailPayment/{order_number}:
+    get:
+      tags:
+        - Tappay
+      summary: Tappay 退款明細 api
+      description: Tappay 退款明細 api
+      operationId: 3d2f48a190201bdd930133375788a6b6
+      parameters:
+        - name: order_number
+          in: path
+          description: 樂居訂單編號
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 回傳內容
+                    properties:
+                      order_number:
+                        description: 樂居訂單編號
+                        type: string
+                        example: S2023004441
+                      is_refund:
+                        description: 退款是否成功
+                        type: integer
+                        example: '1'
+                      amount:
+                        description: 訂單金額
+                        type: integer
+                        example: '500'
+                      refund_id:
+                        description: TapPay 退款編號
+                        type: integer
+                        example: DR202303011kDYiM
+                      refund_amount:
+                        description: TapPay 退款金額
+                        type: integer
+                        example: '500'
+                      created_at:
+                        description: 退款時間
+                        type: string
+                        example: '2023-03-07 00:30:01'
+                      is_allowance:
+                        description: 是否已折讓
+                        type: string
+                        example: '1'
+                      allowance_invoice_created_at:
+                        description: 折讓日期
+                        type: string
+                        example: '2023-03-07 00:30:01'
+                      allowance_invoice_number:
+                        description: 折讓發票
+                        type: string
+                        example: AA00000095
+                      allowance_amount:
+                        description: 折讓金額
+                        type: string
+                        example: '475'
+                      allowance_invoice_no:
+                        description: 折讓編號
+                        type: string
+                        example: A230303011744155
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+  /payment/expert/renewPayment:
+    post:
+      tags:
+        - Tappay
+      summary: 信用卡自動續約,用token打API進行付款
+      description: 信用卡自動續約,用token打API進行付款
+      operationId: ebf07cbca30ae32b0d36ddbf4b88b735
+      parameters:
+        - name: order_number
+          in: query
+          description: 訂單號碼
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            訂單號碼:
+              summary: 訂單號碼
+              value: order123456789
+        - name: details
+          in: query
+          description: 交易品項內容，詐欺檢測器將會以此作為詐欺判定的基準
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+        - name: amount
+          in: query
+          description: 交易總金額
+          required: true
+          schema:
+            type: string
+          examples:
+            '550':
+              summary: '550'
+              value: '550'
+            placeholder:
+              summary: placeholder
+              value: placeholder
+        - name: uid
+          in: query
+          description: 購買人會員id
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            uid:
+              summary: uid
+              value: '21'
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 打pay by token成功
+                  data:
+                    description: 回傳內容
+                    properties:
+                      rec_trade_id:
+                        description: 由 TapPay 伺服器產生的交易字串
+                        type: string
+                        example: D20221116trL4cd
+                      amount:
+                        description: 訂單總額
+                        type: string
+                        example: '550'
+                      order_number:
+                        description: 樂居自定義的訂單編號
+                        type: string
+                        example: '202211181445'
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+  /payment/expert/createInvoice:
+    post:
+      tags:
+        - Ezpay
+      summary: 打ezpay發票api,開立發票
+      description: 打ezpay發票api,開立發票
+      operationId: c09c9ac3e8da96d80465079586715b5c
+      parameters:
+        - name: order_number
+          in: query
+          description: 樂居訂單編號, 不可重複
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 回傳內容
+                    properties:
+                      order_number:
+                        description: 樂居訂單編號
+                        type: string
+                        example: '202212281137'
+                      invoice_number:
+                        description: 發票號碼
+                        type: string
+                        example: AA00000024
+                      invoice_created_at:
+                        description: 發票開立時間
+                        type: string
+                        example: '2022-12-28 11:38:58'
+                      invoice_random_number:
+                        description: 發票隨機碼
+                        type: string
+                        example: '4823'
+                      invoice_status:
+                        description: 發票狀態
+                        type: integer
+                        example: '1'
+                      invoice_category:
+                        description: 發票類型(B2B/B2C)
+                        type: string
+                        example: B2C
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+  /payment/expert/storeInvoice:
+    post:
+      tags:
+        - Ezpay
+      summary: 儲存發票資訊 (當發票狀態為待開立或開立失敗時，可更新資訊)
+      description: 儲存發票資訊 (當發票狀態為待開立或開立失敗時，可更新資訊)
+      operationId: 735f3b3ceb42a7c4d87eebfa8e5d2068
+      parameters:
+        - name: order_number
+          in: query
+          description: 樂居訂單編號, 不可重複, 字數限制=20
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+        - name: name
+          in: query
+          description: 購買人姓名, 字數限制=(B2B:60, B2C:30)
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            張艾莉絲:
+              summary: 張艾莉絲
+              value: 張艾莉絲
+        - name: amount
+          in: query
+          description: 交易總金額
+          required: true
+          schema:
+            type: integer
+          examples:
+            '550':
+              summary: '550'
+              value: 550
+            placeholder:
+              summary: placeholder
+              value: placeholder
+        - name: uid
+          in: query
+          description: 購買人會員id
+          required: true
+          schema:
+            type: integer
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            uid:
+              summary: uid
+              value: 21
+        - name: email
+          in: query
+          description: 購買人電子信箱, 字數限制=50
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            alice@Chang.com:
+              summary: alice@Chang.com
+              value: alice@Chang.com
+        - name: invoice_method
+          in: query
+          description: 發票類型 (0:手機條碼載具 / 1:自然人憑證條碼載具 / 2:ezPay電子發票載具 / 3:捐贈發票 / 4:公司用)
+          required: true
+          schema:
+            type: integer
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            手機條碼載具:
+              summary: 手機條碼載具
+              value: 0
+            自然人憑證條碼載具:
+              summary: 自然人憑證條碼載具
+              value: 1
+            ezPay電子發票載具:
+              summary: ezPay電子發票載具
+              value: 2
+            捐贈發票:
+              summary: 捐贈發票
+              value: 3
+            公司用:
+              summary: 公司用
+              value: 4
+        - name: phone_barcode
+          in: query
+          description: 手機載具條碼(第1碼為/+ 7碼英、數字，限大寫英字), invoice_method=0時為必填
+          required: false
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            /ABCDEFG:
+              summary: /ABCDEFG
+              value: /ABCDEFG
+        - name: person_certificate
+          in: query
+          description: 自然人憑證條碼載具(2碼大寫英字+14碼數字), invoice_method=1時為必填
+          required: false
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            AA12345678911111:
+              summary: AA12345678911111
+              value: AA12345678911111
+        - name: love_code
+          in: query
+          description: 捐贈發票愛心碼(限 3~7 碼純數字), invoice_method=3時為必填
+          required: false
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            社團法人中華民國身障關懷協會:
+              summary: 社團法人中華民國身障關懷協會
+              value: '8850'
+            財團法人台灣世界展望會:
+              summary: 財團法人台灣世界展望會
+              value: '7000'
+        - name: business_no
+          in: query
+          description: 公司統編號(限8碼純數字), invoice_method=4時為必填
+          required: false
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            樂居:
+              summary: 樂居
+              value: '24773315'
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example:
+                      order_number: 訂單號碼不可為空|不可重複|字數限制=20
+                      name: 未輸入姓名|字數限制=(公司用:60字, 非公司用:30字)
+                      amount: 交易總金額不可為空
+                      uid: 會員ID不可為空
+                      email: email不可為空|字數限制=50
+                      invoice_method: 發票開立方法不可為空
+                      phone_barcode: 手機載具條碼格式錯誤
+                      person_certificate: 自然人憑證格式錯誤
+                      love_code: 愛心碼無效
+                      business_no: 統編號錯誤
+                      order_number_exists: 非為開立失敗發票，不可更改此發票資訊
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+  /payment/expert/getInvoice/{order_number}:
+    get:
+      tags:
+        - Ezpay
+      summary: 透過訂單號碼取得發票資訊
+      description: 透過訂單號碼取得發票資訊
+      operationId: 0a484a79279b53a745b8eae66c9f6021
+      parameters:
+        - name: order_number
+          in: path
+          description: 樂居訂單編號
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 回傳內容
+                    properties:
+                      order_number:
+                        description: 樂居訂單編號
+                        type: string
+                        example: '202211181430'
+                      name:
+                        description: 購買人姓名
+                        type: string
+                        example: AA00000024
+                      uid:
+                        description: 購買人會員id
+                        type: string
+                        example: '21'
+                      email:
+                        description: 購買人電子信箱
+                        type: string
+                        example: alice@Chang.com
+                      invoice_method:
+                        description: >-
+                          開立發票方式 (0:手機條碼載具 / 1:自然人憑證條碼載具 / 2:ezPay電子發票載具 /
+                          3:捐贈發票 / 4:公司用)
+                        type: string
+                        example: '0'
+                      phone_barcode:
+                        description: 手機載具條碼
+                        type: string
+                        example: /ABCDEFG
+                      person_certificate:
+                        description: 自然人憑證條碼載具
+                        type: string
+                        example: AA12345678911111
+                      love_code:
+                        description: 捐贈發票愛心碼
+                        type: string
+                        example: '8850'
+                      business_no:
+                        description: 公司統編號
+                        type: string
+                        example: '24773315'
+                      invoice_status:
+                        description: 發票狀態
+                        type: integer
+                        example: '1'
+                      invoice_category:
+                        description: 發票類型(B2B/B2C)
+                        type: string
+                        example: B2C
+                      invoice_number:
+                        description: 發票號碼
+                        type: string
+                        example: AA00000024
+                      invoice_created_at:
+                        description: 發票開立時間
+                        type: string
+                        example: '2022-12-28 11:38:58'
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+  /payment/expert/validateInvoiceData:
+    get:
+      tags:
+        - Ezpay
+      summary: 回傳給予的發票資料之正確性
+      description: 回傳給予的發票資料之正確性
+      operationId: bf40a22435d4e29e371836658604e97b
+      parameters:
+        - name: love_code
+          in: query
+          description: 捐贈碼
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用捐贈碼:
+              summary: 測試用捐贈碼
+              value: '888888'
+        - name: phone_bar_code
+          in: query
+          description: 手機載具
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用手機載具:
+              summary: 測試用手機載具
+              value: /ABC1234
+        - name: invoice_method
+          in: query
+          description: 發票類型
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            類型為載具:
+              summary: 類型為載具
+              value: '0'
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 回傳內容
+                    properties:
+                      result:
+                        description: 輸入資料是否合法
+                        type: boolean
+                        example: 'true'
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: object
+                    example:
+                      invoice_method: 發票開立方法錯誤
+                      phone_bar_code: 手機載具條碼格式錯誤
+                      love_code: 愛心碼格式錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+  /payment/expert/allowanceInvoice:
+    post:
+      tags:
+        - Ezpay
+      summary: 透過發票號碼進行折讓
+      description: 透過發票號碼進行折讓，現階段一張發票只能折讓一次
+      operationId: 4c07281819ea238fe974ec5f8b7a5885
+      parameters:
+        - name: invoice_number
+          in: query
+          description: invoice_number
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            AA00000052:
+              summary: AA00000052
+              value: AA00000052
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 回傳內容
+                    properties:
+                      invoice_number:
+                        description: 發票號碼
+                        type: string
+                        example: AA00000107
+                      allowance_invoice_number:
+                        description: 折讓單號
+                        type: string
+                        example: A230301145043042
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+  /payment/expert/tapPayBindCard:
+    post:
+      tags:
+        - Tappay
+      summary: TapPay 綁定信用卡
+      description: TapPay 綁定信用卡
+      operationId: 7296b8c632d53551d1afd610cb36ebfd
+      parameters:
+        - name: uid
+          in: query
+          description: 購買人會員id
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            購買人會員id:
+              summary: 購買人會員id
+              value: '19910202'
+        - name: prime
+          in: query
+          description: tappay prime
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: c10267ddde091b64e1c49d253ab061934397a2abc8a3a23c281e8f159a69c5a0
+        - name: name
+          in: query
+          description: 綁定者姓名
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            王小明:
+              summary: 王小明
+              value: 王小明
+        - name: phone_number
+          in: query
+          description: 綁定者電話號碼
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            '+886923456789':
+              summary: '+886923456789'
+              value: '+886923456789'
+        - name: email
+          in: query
+          description: 綁定者信箱
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            LittleMing@Wang.com:
+              summary: LittleMing@Wang.com
+              value: LittleMing@Wang.com
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 回傳內容
+                    properties:
+                      id:
+                        description: 卡片 ID
+                        type: integer
+                        example: '87'
+                      last_four:
+                        description: 卡片後四碼
+                        type: string
+                        example: '4242'
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object

@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+    
+    auto: 
+        container_name: "auto_backend"
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+             - "9001:9090"
+             - "6201:22"
+        volumes:
+            - "/auto:/auto"
+            - "/var/www:/var/www"
+            - "/home/elfjane/lejutech:/home/elfjane/lejutech"
+

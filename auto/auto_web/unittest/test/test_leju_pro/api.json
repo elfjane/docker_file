@@ -1,0 +1,125 @@
+[
+  {
+    "item_url": "api/auth/verifyToken",
+    "item_type": "GET",
+    "item_title": "樂居 Pro 付費權限檢查 API",
+    "item_help": "樂居 Pro 付費權限檢查 API",
+    "parameter_header": [
+      "authorization"
+    ],
+    "parameter_uri": [],
+    "parameter_list": []
+  },
+  {
+    "item_url": "api/internal/order/getList",
+    "item_type": "GET",
+    "item_title": "取得訂單列表",
+    "item_help": "取得訂單列表",
+    "parameter_header": [
+    ],
+    "parameter_uri": [
+    ],
+    "parameter_list": [
+      "start_date",
+      "end_date",
+      "order_number",
+      "page",
+      "per_page"
+    ]
+  },
+  {
+    "item_url": "api/internal/order/create",
+    "item_type": "POST",
+    "item_title": "建立訂單",
+    "item_help": "建立訂單",
+    "parameter_header": [
+    ],
+    "parameter_uri": [
+    ],
+    "parameter_list": [
+      "order_number",
+      "buyer",
+      "price",
+      "account_num",
+      "start_date",
+      "end_date",
+      "note",
+      "modify_by",
+      "source"
+    ]
+  },
+  {
+    "item_url": "api/internal/order/update",
+    "item_type": "POST",
+    "item_title": "更新訂單",
+    "item_help": "更新訂單",
+    "parameter_header": [
+    ],
+    "parameter_uri": [
+    ],
+    "parameter_list": [
+      "order_id",
+      "order_number",
+      "buyer",
+      "price",
+      "account_num",
+      "start_date",
+      "end_date",
+      "note",
+      "modify_by",
+      "source"
+    ]
+  },
+  {
+    "item_url": "api/internal/order/getHeadInfo",
+    "item_type": "GET",
+    "item_title": "取得訂單",
+    "item_help": "取得訂單",
+    "parameter_header": [
+    ],
+    "parameter_uri": [
+      "order_id"
+    ],
+    "parameter_list": [
+    ]
+  },
+  {
+    "item_url": "api/internal/order/getBodyList",
+    "item_type": "GET",
+    "item_title": "取得指派帳號版位",
+    "item_help": "取得指派帳號版位",
+    "parameter_header": [
+    ],
+    "parameter_uri": [
+      "order_id"
+    ],
+    "parameter_list": [
+    ]
+  },
+  {
+    "item_url": "api/internal/order/deleteBody",
+    "item_type": "DELETE",
+    "item_title": "刪除指派帳號版位",
+    "item_help": "刪除指派帳號版位",
+    "parameter_header": [
+    ],
+    "parameter_uri": [
+      "order_body_id"
+    ],
+    "parameter_list": [
+    ]
+  },
+  {
+    "item_url": "api/internal/order/deleteBody",
+    "item_type": "DELETE",
+    "item_title": "刪除指派帳號版位2",
+    "item_help": "刪除指派帳號版位2",
+    "parameter_header": [
+    ],
+    "parameter_uri": [
+      "order_body_id"
+    ],
+    "parameter_list": [
+    ]
+  }
+]

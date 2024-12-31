@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+    
+    auto: 
+        container_name: "leju_auto"
+        build: leju_auto_build
+        restart: always
+        ports:
+             - "9090:9090"
+             - "2300:22"
+        env_file:
+            - auto.env
+        volumes:
+            - "/auto:/auto"
+            - "/var/www:/var/www"
+            - "/home/elfjane/lejutech:/home/elfjane/lejutech"
+

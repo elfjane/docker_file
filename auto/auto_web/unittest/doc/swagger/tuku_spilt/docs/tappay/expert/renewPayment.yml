@@ -1,0 +1,142 @@
+  /payment/expert/renewPayment:
+    post:
+      tags:
+        - Tappay
+      summary: 信用卡自動續約,用token打API進行付款
+      description: 信用卡自動續約,用token打API進行付款
+      operationId: ebf07cbca30ae32b0d36ddbf4b88b735
+      parameters:
+        - name: order_number
+          in: query
+          description: 訂單號碼
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            訂單號碼:
+              summary: 訂單號碼
+              value: order123456789
+        - name: details
+          in: query
+          description: 交易品項內容，詐欺檢測器將會以此作為詐欺判定的基準
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+        - name: amount
+          in: query
+          description: 交易總金額
+          required: true
+          schema:
+            type: string
+          examples:
+            '550':
+              summary: '550'
+              value: '550'
+            placeholder:
+              summary: placeholder
+              value: placeholder
+        - name: uid
+          in: query
+          description: 購買人會員id
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            uid:
+              summary: uid
+              value: '21'
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 打pay by token成功
+                  data:
+                    description: 回傳內容
+                    properties:
+                      rec_trade_id:
+                        description: 由 TapPay 伺服器產生的交易字串
+                        type: string
+                        example: D20221116trL4cd
+                      amount:
+                        description: 訂單總額
+                        type: string
+                        example: '550'
+                      order_number:
+                        description: 樂居自定義的訂單編號
+                        type: string
+                        example: '202211181445'
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object

@@ -1,0 +1,234 @@
+  /payment/expert/storeInvoice:
+    post:
+      tags:
+        - Ezpay
+      summary: 儲存發票資訊 (當發票狀態為待開立或開立失敗時，可更新資訊)
+      description: 儲存發票資訊 (當發票狀態為待開立或開立失敗時，可更新資訊)
+      operationId: 735f3b3ceb42a7c4d87eebfa8e5d2068
+      parameters:
+        - name: order_number
+          in: query
+          description: 樂居訂單編號, 不可重複, 字數限制=20
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+        - name: name
+          in: query
+          description: 購買人姓名, 字數限制=(B2B:60, B2C:30)
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            張艾莉絲:
+              summary: 張艾莉絲
+              value: 張艾莉絲
+        - name: amount
+          in: query
+          description: 交易總金額
+          required: true
+          schema:
+            type: integer
+          examples:
+            '550':
+              summary: '550'
+              value: 550
+            placeholder:
+              summary: placeholder
+              value: placeholder
+        - name: uid
+          in: query
+          description: 購買人會員id
+          required: true
+          schema:
+            type: integer
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            uid:
+              summary: uid
+              value: 21
+        - name: email
+          in: query
+          description: 購買人電子信箱, 字數限制=50
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            alice@Chang.com:
+              summary: alice@Chang.com
+              value: alice@Chang.com
+        - name: invoice_method
+          in: query
+          description: 發票類型 (0:手機條碼載具 / 1:自然人憑證條碼載具 / 2:ezPay電子發票載具 / 3:捐贈發票 / 4:公司用)
+          required: true
+          schema:
+            type: integer
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            手機條碼載具:
+              summary: 手機條碼載具
+              value: 0
+            自然人憑證條碼載具:
+              summary: 自然人憑證條碼載具
+              value: 1
+            ezPay電子發票載具:
+              summary: ezPay電子發票載具
+              value: 2
+            捐贈發票:
+              summary: 捐贈發票
+              value: 3
+            公司用:
+              summary: 公司用
+              value: 4
+        - name: phone_barcode
+          in: query
+          description: 手機載具條碼(第1碼為/+ 7碼英、數字，限大寫英字), invoice_method=0時為必填
+          required: false
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            /ABCDEFG:
+              summary: /ABCDEFG
+              value: /ABCDEFG
+        - name: person_certificate
+          in: query
+          description: 自然人憑證條碼載具(2碼大寫英字+14碼數字), invoice_method=1時為必填
+          required: false
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            AA12345678911111:
+              summary: AA12345678911111
+              value: AA12345678911111
+        - name: love_code
+          in: query
+          description: 捐贈發票愛心碼(限 3~7 碼純數字), invoice_method=3時為必填
+          required: false
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            社團法人中華民國身障關懷協會:
+              summary: 社團法人中華民國身障關懷協會
+              value: '8850'
+            財團法人台灣世界展望會:
+              summary: 財團法人台灣世界展望會
+              value: '7000'
+        - name: business_no
+          in: query
+          description: 公司統編號(限8碼純數字), invoice_method=4時為必填
+          required: false
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            樂居:
+              summary: 樂居
+              value: '24773315'
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example:
+                      order_number: 訂單號碼不可為空|不可重複|字數限制=20
+                      name: 未輸入姓名|字數限制=(公司用:60字, 非公司用:30字)
+                      amount: 交易總金額不可為空
+                      uid: 會員ID不可為空
+                      email: email不可為空|字數限制=50
+                      invoice_method: 發票開立方法不可為空
+                      phone_barcode: 手機載具條碼格式錯誤
+                      person_certificate: 自然人憑證格式錯誤
+                      love_code: 愛心碼無效
+                      business_no: 統編號錯誤
+                      order_number_exists: 非為開立失敗發票，不可更改此發票資訊
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object

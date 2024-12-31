@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML elfjane Terminal</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .terminal {
+            padding-left: 10px;
+        }
+        .terminal2 {
+            padding-left: 10px;
+        }
+        .input-line {
+            display: flex;
+        }
+        .prompt {
+            padding-left: 0px;
+        }
+        .input {
+            flex-grow: 1;
+            background-color: transparent;
+            color: white;
+            border: none;
+            outline: none;
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .input_pre {
+            margin:0
+        }
+        .out {
+            margin: 0;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal2">
+        <div>Welcome to elfjane HTML Terminal Ver 1.0</div>
+    </div>
+    <div class="terminal">
+    </div>
+    <div class="terminal2">
+        <div class="input-line">
+            <div class="prompt">$&nbsp;</div>
+            <input type="text" class="input" id="messages" autofocus>
+        </div>
+    </div>
+
+<script>
+const terminal = document.querySelector('.terminal');
+const terminal2 = document.querySelector('.terminal2');
+const input = document.querySelector('.input');
+
+const messages = document.getElementById('messages');
+const commandList = [];
+var commandNow='';
+var commandListIndex = 0;
+var commandListAt = 0;
+console.log(commandList.length);
+// 檢查是否在底部
+function isAtBottom() {
+  return messages.scrollHeight - messages.scrollTop === messages.clientHeight;
+}
+
+// 捲動到底部
+function scrollToBottom() {
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// 清除指令
+function commandClear() {
+  terminal.innerHTML = '';
+}
+
+// 歷史指令
+function commandHistory() {
+    text = '';
+    row = 0;
+    commandList.forEach(function(item, index){
+        text = text + ' ' + index + '  ' + item + '\r\n';
+
+    });
+    commandAddText(text);
+}
+
+// 指令新增
+function commandAdd(command) {
+    commandList.push(command);
+    commandListIndex = commandList.length;
+    commandListAt = commandListIndex;
+    input.value = '';
+    commandNow = '';
+    isCommandChange=false;
+}
+
+// 上一個指令
+function commandArrowUp() {
+  if (commandListAt > 0) {
+      commandListAt = commandListAt - 1;
+  }
+  if (!isCommandChange) {
+      commandNow = input.value;
+      isCommandChange = true;
+  }
+  input.value = commandList[commandListAt];
+}
+
+// 下一個指令
+function commandArrowDown() {
+  if (commandListAt < commandListIndex) {
+      commandListAt = commandListAt + 1;
+  }
+
+  if (commandListAt == commandListIndex) {
+      isCommandChange = false;
+      input.value = commandNow;
+      return;
+  }
+    console.log(commandListAt);
+  input.value = commandList[commandListAt];
+}
+
+// 捲動到底部
+function commandCheck(command) {
+  if (command == 'clear') {
+      commandAdd(command);
+      commandClear();
+      return true;
+  }
+  if (command == 'history') {
+      commandAdd(command);
+      commandHistory();
+      return true;
+  }
+  return false;
+}
+
+// 捲動到底部
+function commandAddText(text) {
+    const output_success = document.createElement('pre');
+    output_success.className = 'prompt';
+    output_success.textContent = text;
+    terminal.appendChild(output_success);
+
+    // 如果在底部，則捲動到底部
+    window.scrollTo(0,document.body.scrollHeight);
+}
+
+// 監聽滾動事件
+document.addEventListener('keydown', function(event) {
+    console.log(event.key);
+    input.focus();
+});
+
+input.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowUp') {
+        commandArrowUp();
+    }
+    if (event.key === 'ArrowDown') {
+        commandArrowDown();
+    }
+    if (event.key === 'Enter') {
+        const command = input.value.trim();
+        if (commandCheck(command)) {
+          return;
+        }
+
+        const output = document.createElement('div');
+        output.textContent = '$ ' + command;
+        const data2 = {};
+        data2.is_debug = 1;
+        data2.command = command;
+        data2.key = "terminal";
+        data2.is_hide_message = 1;
+        terminal.appendChild(output);
+        commandAdd(command);
+
+        var jqxhr = $.get( "http://autopayment.leju.com.io/terminal", data2 , function(body) {
+            commandAddText(body);
+        })
+          .done(function() {
+            //alert( "second success" );
+          })
+          .fail(function() {
+            //const command = input.value;
+            const output_error = document.createElement('div');
+            output_error.textContent = "can't connect server";
+            terminal.insertBefore(output_error);
+          })
+          .always(function() {
+            //alert( "finished" );
+          });
+    }
+});
+
+
+</script>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</html>

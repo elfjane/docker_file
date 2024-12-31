@@ -1,0 +1,7 @@
+openapi: 3.0.0
+info:
+  ...
+paths:
+  $ref: users.yml
+  $ref: orders.yml
+  $ref: products.yml

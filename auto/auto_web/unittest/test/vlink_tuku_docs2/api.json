@@ -1,0 +1,126 @@
+[
+    {
+        "item_url": "hi2",
+        "item_type": "GET",
+        "item_title": "測試連線",
+        "item_help": "測試連線",
+        "parameter_list": ["branch"]
+    },
+    {
+        "item_url": "websh?key=tuku_docs_update&is_debug=1",
+        "item_type": "GET",
+        "item_title": "更新最新檔案",
+        "item_help": "更新最新檔案",
+        "parameter_list": []
+    },
+    {
+        "item_url": "websh?key=backend_clear_cache&is_debug=1",
+        "item_type": "GET",
+        "item_title": "後台更新(clear cache)",
+        "item_help": "後台更新(clear cache)",
+        "parameter_list": []
+    },
+    {
+        "item_url": "websh?key=backend_composer_install&is_debug=1",
+        "item_type": "GET",
+        "item_title": "後台composer install",
+        "item_help": "後台composer install)",
+        "parameter_list": []
+    },
+    {
+        "item_url": "websh?key=backend_code_reset&is_debug=1",
+        "item_type": "GET",
+        "item_title": "後台更新(還原)",
+        "item_help": "後台更新(還原)",
+        "parameter_list": [
+            "branch"
+        ]
+    },
+    {
+        "item_url": "websh?key=leju_create&is_debug=1",
+        "item_type": "GET",
+        "item_title": "leju lib更新(全部)",
+        "item_help": "leju lib更新",
+        "parameter_list": []
+    },
+    {
+        "item_url": "websh?key=leju_clear_cache&is_debug=1",
+        "item_type": "GET",
+        "item_title": "leju lib更新(clear cache)",
+        "item_help": "leju lib更新(clear cache)",
+        "parameter_list": []
+    },
+    {
+        "item_url": "websh?key=leju_composer_install&is_debug=1",
+        "item_type": "GET",
+        "item_title": "leju lib composer install",
+        "item_help": "leju lib composer install)",
+        "parameter_list": []
+    },
+    {
+        "item_url": "websh?key=leju_code_reset&is_debug=1",
+        "item_type": "GET",
+        "item_title": "leju lib更新(還原)",
+        "item_help": "leju lib更新(還原)",
+        "parameter_list": [
+            "branch"
+        ]
+    },
+    {
+        "item_url": "websh?key=task_create&is_debug=1",
+        "item_type": "GET",
+        "item_title": "Task 更新(全部)",
+        "item_help": "Task更新",
+        "parameter_list": []
+    },
+    {
+        "item_url": "websh?key=task_clear_cache&is_debug=1",
+        "item_type": "GET",
+        "item_title": "Task更新(clear cache)",
+        "item_help": "Task更新(clear cache)",
+        "parameter_list": []
+    },
+    {
+        "item_url": "websh?key=task_composer_install&is_debug=1",
+        "item_type": "GET",
+        "item_title": "Task composer install",
+        "item_help": "Task composer install)",
+        "parameter_list": []
+    },
+    {
+        "item_url": "websh?key=task_code_reset&is_debug=1",
+        "item_type": "GET",
+        "item_title": "Task更新(還原)",
+        "item_help": "Task更新(還原)",
+        "parameter_list": [
+            "branch"
+        ]
+    },
+    {
+        "item_url": "websh?key=api_code_reset&is_debug=1",
+        "item_type": "GET",
+        "item_title": "API更新(還原)",
+        "item_help": "API更新(還原)",
+        "parameter_list": [
+            "branch"
+        ]
+    },
+    {
+        "item_url": "websh?key=test\/name_test&is_debug=1",
+        "item_type": "GET",
+        "item_title": "傳參數測試",
+        "item_help": "傳參數測試",
+        "parameter_list": [
+            "branch"
+        ]
+    },
+    {
+        "item_url": "websh?key=phpunit&category=api&is_debug=1&filter=ExpertPaymentTapPayTest&func=payObjectList測試",
+        "item_type": "GET",
+        "item_title": "測試",
+        "item_help": "測試",
+        "parameter_list": [
+            "is_test"
+        ]
+    }
+]

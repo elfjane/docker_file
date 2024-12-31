@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+    
+    auto: 
+        container_name: "auto_www-laravel"
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+             - "9002:9090"
+             - "6202:22"
+        volumes:
+            - "/auto:/auto"
+            - "/var/www:/var/www"
+            - "/home/elfjane/lejutech:/home/elfjane/lejutech"
+

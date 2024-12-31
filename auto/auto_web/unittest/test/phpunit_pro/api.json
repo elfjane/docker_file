@@ -1,0 +1,39 @@
+[
+    {
+        "item_url": "websh?key=phpunit_coverage&category=pro",
+        "item_type": "GET",
+        "item_title": "pro 覆蓋率測試",
+        "item_help": "pro 覆蓋率測試",
+        "parameter_list": [
+            "is_debug",
+            "is_hide_message",
+            "coverage_min",
+            "i_color",
+            "test_user"
+        ]
+    },
+    {
+        "item_url": "websh?key=phpunit&category=pro&filter=VerifyTokenTest",
+        "item_type": "GET",
+        "item_title": "VerifyTokenTest",
+        "item_help": "VerifyTokenTest",
+        "parameter_list": [
+          "is_debug",
+          "is_hide_message",
+          "is_test",
+          "test_user"
+        ]
+    },
+    {
+        "item_url": "websh?key=phpunit&category=pro&filter=OrderManagementTest",
+        "item_type": "GET",
+        "item_title": "OrderManagementTest",
+        "item_help": "OrderManagementTest",
+        "parameter_list": [
+          "is_debug",
+          "is_hide_message",
+          "is_test",
+          "test_user"
+        ]
+    }
+]

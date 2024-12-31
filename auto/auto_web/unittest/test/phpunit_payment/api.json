@@ -1,0 +1,63 @@
+[
+    {
+        "item_url": "websh?key=phpunit_coverage&category=payment",
+        "item_type": "GET",
+        "item_title": "Payment 覆蓋率測試",
+        "item_help": "Payment 覆蓋率測試",
+        "parameter_list": [
+            "is_debug",
+            "is_hide_message",
+            "coverage_min",
+            "i_color",
+            "test_user"
+        ]
+    },
+    {
+        "item_url": "websh?key=phpunit&category=payment&filter=ExpertPaymentRefundTapPayTest",
+        "item_type": "GET",
+        "item_title": "ExpertPaymentRefundTapPayTest",
+        "item_help": "ExpertPaymentRefundTapPayTest",
+        "parameter_list": [
+          "is_debug",
+          "is_hide_message",
+          "is_test",
+          "test_user"
+        ]
+    },
+    {
+        "item_url": "websh?key=phpunit&category=payment&filter=ExpertPaymentRefundDetailTapPayTest",
+        "item_type": "GET",
+        "item_title": "ExpertPaymentRefundDetailTapPayTest",
+        "item_help": "ExpertPaymentRefundDetailTapPayTest",
+        "parameter_list": [
+          "is_debug",
+          "is_hide_message",
+          "is_test",
+          "test_user"
+        ]
+    },
+    {
+        "item_url": "websh?key=phpunit&category=payment&filter=TapPayBindCardTest",
+        "item_type": "GET",
+        "item_title": "TapPayBindCardTest",
+        "item_help": "TapPayBindCardTest",
+        "parameter_list": [
+          "is_debug",
+          "is_hide_message",
+          "is_test",
+          "test_user"
+        ]
+    },
+    {
+        "item_url": "websh?key=phpunit&category=payment&filter=EzpayInvoiceRemainingTest",
+        "item_type": "GET",
+        "item_title": "EzpayInvoiceRemainingTest",
+        "item_help": "EzpayInvoiceRemainingTest",
+        "parameter_list": [
+          "is_debug",
+          "is_hide_message",
+          "is_test",
+          "test_user"
+        ]
+    }
+]

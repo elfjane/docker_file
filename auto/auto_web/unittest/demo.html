@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: space-between;
+    }
+    form {
+      width: 50%; /* 设置表单宽度为页面的一半 */
+    }
+    iframe {
+      width: 50%; /* 设置iframe宽度为页面的一半 */
+    }
+  </style>
+ </head>
+ <body>
+  <form method="post" action="http://localhost:3002/createImage" target="targetFrame">
+    <input type="submit">
+    
+    序號 serial number <input type="text" name="serial" value=><BR>
+    ※ 唯一值 只能傳送一次，空白則隨機名稱<BR>
+    標題<input type="text" name="key" value=123><BR>
+    圖片寬 canvasWidth <input type="text" name="canvasWidth" value=800><BR>
+    圖片高 canvasHeight<input type="text" name="canvasHeight" value=800><BR>
+    圖片ContextId canvasContextId<input type="text" name="canvasContextId" value="2d"><BR>
+    背景顏色<input type="text" name="canvasBackgroundColor" value="#eeeeee"><BR>
+    <textarea name="draw" rows="20" cols="80">[
+    {
+        "plugin": "fillStyle",
+        "color": "#764abc"
+    },
+    {
+        "plugin": "fillRect",
+        "x": 0,
+        "y": 0,
+        "width": 10,
+        "height": 10,
+        "color": "#000000"
+    },
+    {
+        "plugin": "fillStyle",
+        "color": "#764abc"
+    },
+    {
+        "plugin": "rect",
+        "x": 100,
+        "y": 100,
+        "width": 10,
+        "height": 10
+    },
+    {
+        "plugin": "fill"
+    },
+    {
+        "plugin": "strokeRect",
+        "x": 150,
+        "y": 150,
+        "width": 10,
+        "height": 10,
+        "color": "#000000"
+    },
+    {
+        "plugin": "strokeText",
+        "text": "test",
+        "x": 150,
+        "y": 180
+    },
+    {
+        "plugin": "strokeText",
+        "text": "測試",
+        "x": 150,
+        "y": 200
+    },
+    {
+        "plugin": "font",
+        "font": "bold 48px serif"
+    },
+    {
+        "plugin": "fillText",
+        "text": "測試",
+        "x": 150,
+        "y": 80
+    },
+    {
+        "plugin": "line",
+        "x1": 30,
+        "y1": 0,
+        "x2": 30,
+        "y2": 90,
+        "color": "green"
+    },
+    {
+        "plugin": "beginPath"
+    },
+    {
+       "plugin": "strokeStyle",
+       "color": "red"
+    },
+    {
+        "plugin": "moveTo",
+        "x": 40,
+        "y": 0
+    },
+    {
+        "plugin": "lineTo",
+        "x": 40,
+        "y": 90
+    },
+    {
+        "plugin": "stroke"
+    }
+]</textarea><BR>
+    <input type="submit">
+  </form>
+
+  <!-- 添加一个iframe标签 -->
+  <iframe name="targetFrame" src="about:blank"></iframe>
+ </body>
+</html>

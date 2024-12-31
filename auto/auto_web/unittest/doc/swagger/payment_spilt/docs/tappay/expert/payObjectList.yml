@@ -1,0 +1,190 @@
+  /payment/expert/payObjectList:
+    post:
+      tags:
+        - Tappay
+      summary: 達人第一次付款買社區版位,打3D驗證API進行付款
+      description: 達人第一次付款買社區版位,打3D驗證API進行付款
+      operationId: 9102a191b8383abe28292b50eee221f3
+      parameters:
+        - name: prime
+          in: query
+          description: 用卡號所換得的字串，打 tappay getPrime 會拿到
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試prime:
+              summary: 測試prime
+              value: test_3a2fb2b7e892b914a03c95dd4dd5dc7970c908df67a49527c0a648b2bc9
+        - name: order_number
+          in: query
+          description: 樂居訂單編號
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+        - name: details
+          in: query
+          description: 交易品項內容，詐欺檢測器將會以此作為詐欺判定的基準
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用自定義編號:
+              summary: 測試用自定義編號
+              value: '202211181430'
+        - name: amount
+          in: query
+          description: 交易總金額
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            '0550':
+              summary: '550'
+              value: '550'
+        - name: uid
+          in: query
+          description: 購買人會員id
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            uid:
+              summary: uid
+              value: '21'
+        - name: name
+          in: query
+          description: 購買人姓名
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            張艾莉絲:
+              summary: 張艾莉絲
+              value: 張艾莉絲
+        - name: phone_number
+          in: query
+          description: 購買人手機號碼，可為 09 開頭的電話或是包含加號之 E.164 格式
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            '0923456789':
+              summary: '0923456789'
+              value: '0923456789'
+            '+886923456789':
+              summary: '+886923456789'
+              value: '+886923456789'
+        - name: email
+          in: query
+          description: 購買人電子信箱
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            alice@Chang.com:
+              summary: alice@Chang.com
+              value: alice@Chang.com
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 回傳內容
+                    properties:
+                      payment_url:
+                        description: 3D驗證付款頁面網址，前端跳轉此網址
+                        type: string
+                        example: >-
+                          https://sandbox-redirect.tappaysdk.com/redirect/9d39546f0897b1b45b6d8d61fc5ce1ba26fd00bb7711b93fa67ca141662ad16b
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: 400
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 參數錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object

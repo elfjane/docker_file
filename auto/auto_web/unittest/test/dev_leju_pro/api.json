@@ -1,0 +1,13 @@
+[
+  {
+    "item_url": "api/auth/verifyToken",
+    "item_type": "GET",
+    "item_title": "樂居 Pro 付費權限檢查 API",
+    "item_help": "樂居 Pro 付費權限檢查 API",
+    "parameter_header": [
+      "authorization"
+    ],
+    "parameter_uri": [],
+    "parameter_list": []
+  }
+]

@@ -1,0 +1,20 @@
+openapi: 3.0.0
+info:
+  title: Payment金流專案-API文件管理
+  version: 1.0.0
+  description: 
+    test
+servers:
+  - url: http://ec2-3-39-30-52.ap-northeast-2.compute.amazonaws.com/api
+tags:
+  - name: Tappay
+    description: Tappay 金流
+    externalDocs:
+      description: TapPay Docs
+      url: https://docs.tappaysdk.com/tutorial/zh/home.html
+  - name: Ezpay
+    description: Ezpay 金流
+    externalDocs:
+      description: Ezpay API文件專區
+      url: https://www.ezpay.com.tw/info/Service_intro/api_document/member
+paths:

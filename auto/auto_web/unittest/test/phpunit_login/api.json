@@ -1,0 +1,46 @@
+[
+    {
+        "item_url": "hi",
+        "item_type": "GET",
+        "item_title": "測試連線",
+        "item_help": "測試連線",
+        "parameter_list": []
+    },
+    {
+        "item_url": "websh?key=phpunit_coverage&category=login",
+        "item_type": "GET",
+        "item_title": "Login 覆蓋率測試",
+        "item_help": "Login 覆蓋率測試",
+        "parameter_list": [
+            "is_debug",
+            "is_hide_message",
+            "coverage_min",
+            "i_color",
+            "test_user"
+        ]
+    },
+    {
+        "item_url": "websh?key=phpunit&category=login&filter=VerifyAccessTokenTest&func=test_verify_access_token_error",
+        "item_type": "GET",
+        "item_title": "VerifyAccessTokenTest::test_verify_access_token_error",
+        "item_help": "VerifyAccessTokenTest::test_verify_access_token_error",
+        "parameter_list": [
+            "is_debug",
+            "is_hide_message",
+            "is_test",
+            "test_user"
+        ]
+    },
+    {
+        "item_url": "websh?key=phpunit&category=login&filter=GetUserInfoTest&func=test_get_user_info_success",
+        "item_type": "GET",
+        "item_title": "GetUserInfoTest::test_get_user_info_success",
+        "item_help": "GetUserInfoTest::test_get_user_info_success",
+        "parameter_list": [
+            "is_debug",
+            "is_hide_message",
+            "is_test",
+            "test_user"
+        ]
+    }
+]

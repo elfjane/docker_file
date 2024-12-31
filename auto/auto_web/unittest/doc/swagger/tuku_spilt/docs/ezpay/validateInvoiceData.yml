@@ -1,0 +1,124 @@
+  /payment/expert/validateInvoiceData:
+    get:
+      tags:
+        - Ezpay
+      summary: 回傳給予的發票資料之正確性
+      description: 回傳給予的發票資料之正確性
+      operationId: bf40a22435d4e29e371836658604e97b
+      parameters:
+        - name: love_code
+          in: query
+          description: 捐贈碼
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用捐贈碼:
+              summary: 測試用捐贈碼
+              value: '888888'
+        - name: phone_bar_code
+          in: query
+          description: 手機載具
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            測試用手機載具:
+              summary: 測試用手機載具
+              value: /ABC1234
+        - name: invoice_method
+          in: query
+          description: 發票類型
+          required: true
+          schema:
+            type: string
+          examples:
+            placeholder:
+              summary: placeholder
+              value: placeholder
+            類型為載具:
+              summary: 類型為載具
+              value: '0'
+      responses:
+        '200':
+          description: 成功,正常回傳
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: success
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '200'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 成功,正常回傳
+                  data:
+                    description: 回傳內容
+                    properties:
+                      result:
+                        description: 輸入資料是否合法
+                        type: boolean
+                        example: 'true'
+                    type: object
+                type: object
+        '400':
+          description: 參數錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '400'
+                  message:
+                    description: 回傳說明
+                    type: object
+                    example:
+                      invoice_method: 發票開立方法錯誤
+                      phone_bar_code: 手機載具條碼格式錯誤
+                      love_code: 愛心碼格式錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
+        '500':
+          description: 系統錯誤
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    description: 狀態
+                    type: string
+                    example: error
+                  code:
+                    description: 狀態碼
+                    type: integer
+                    example: '500'
+                  message:
+                    description: 回傳說明
+                    type: string
+                    example: 系統錯誤
+                  data:
+                    description: 無回傳內容
+                    type: object
+                    example: null
+                type: object
