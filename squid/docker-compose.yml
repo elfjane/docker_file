@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  squid:
+    image: ubuntu/squid:latest
+    container_name: squid_proxy
+    ports:
+      - "8080:3128"
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf:ro
+      - ./cache:/var/spool/squid
+    restart: always
