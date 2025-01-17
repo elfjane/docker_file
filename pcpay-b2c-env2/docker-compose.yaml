@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  pcpay-bc2-env2:
+    image: node:12.22.12
+    container_name: pcpay-bc2-env2
+    volumes:
+      - C:/vm_project/test/pcpay-b2c:/opt/branch_farm/pcpay-b2c
+    command: sh -c "npm install && tail -f /dev/null"      
+
