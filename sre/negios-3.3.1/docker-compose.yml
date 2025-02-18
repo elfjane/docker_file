@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  negios331:
+    restart: always
+    build:
+        context: ./
+        dockerfile: Dockerfile
+        args:
+            NAGIOS_EMAIL: "elfjane@gmail.com"
+            NAGIOS_ACCOUNT: "nagiosadmin"
+            NAGIOS_PASSWORD: 1234
+    tty: true
+    stdin_open: true
+    #command: tail -f /dev/null
+    ports:
+      - "8011:80"
+    volumes:
+      - ./etc/nagios.cfg:/usr/local/nagios/etc/nagios.cfg
+      - ./etc/objects/commands.cfg:/usr/local/nagios/etc/commands.cfg    
