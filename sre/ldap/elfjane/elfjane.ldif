@@ -1,0 +1,6 @@
+dn: uid=aaa,ou=users,dc=my-domain,dc=com
+objectClass: inetOrgPerson
+uid: aaa
+sn: User
+cn: AAA User
+userPassword: {SSHA}{SSHA}LAoPoEV6GR2SAtYnpf+rs8JxrrcVpEvi

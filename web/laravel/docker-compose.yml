@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+    web:
+        image: nginx:latest
+        restart: always
+        ports:
+            - "8203:80"
+        volumes:
+            - "./html:/var/www/html"
+            - "./default.conf:/etc/nginx/conf.d/default.conf"
+            - "./log/error:/var/log/nginx/error/"
+            - "./log/access:/var/log/nginx/access/"
+        links:
+            - php
+    php:
+        build: php-build
+        restart: always
+        volumes:
+            - "./html:/var/www/html"
+            #- "~/html/storage:/var/www/html/storage"
+

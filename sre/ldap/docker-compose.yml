@@ -1,0 +1,16 @@
+version: "3.2"
+
+services:
+  ldap:
+    build:
+      context: ./
+    container_name: ldap
+    restart: no    
+    ports:
+      - 389:389    
+    volumes:
+      - ./elfjane:/etc/openldap/elfjane
+    #  - ./slapd.ldif:/etc/openldap/slapd.ldif
+    #command: tail -f /dev/null
+    #command: sh -c "cd /var/www/html/pcpay-b2c/pcpay-asset/source/b2c-api && npm install && npm run prod"      
+      

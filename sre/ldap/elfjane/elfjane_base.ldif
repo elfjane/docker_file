@@ -1,0 +1,4 @@
+dn: dc=elfjane,dc=com
+objectClass: top
+objectClass: domain
+dc: elfjane

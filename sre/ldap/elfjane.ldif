@@ -1,0 +1,9 @@
+dn: dc=elfjane,dc=com
+objectclass: dcObject
+objectclass: organization
+o: elfjane Company
+dc: elfjane
+
+dn: cn=Manager,dc=elfjane,dc=com
+objectclass: organizationalRole
+cn: Manager

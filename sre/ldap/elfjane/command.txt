@@ -1,0 +1,37 @@
+echo -e "dn: dc=elfjane,dc=com\nobjectClass: top\nobjectClass: domain\ndc: elfjane" > /etc/openldap/elfjane/elfjane_base.ldif
+echo -e "dn: ou=users,dc=elfjane,dc=com\nobjectClass: organizationalUnit\nou: users" > /etc/openldap/elfjane/elfjane_ou.ldif
+echo -e "dn: ou=groups,dc=elfjane,dc=com\nobjectClass: organizationalUnit\nou: users" > /etc/openldap/elfjane/elfjane_ou.ldif
+echo -e "dn: uid=elfjane,ou=groups,dc=elfjane,dc=com\nobjectClass: inetOrgPerson\nuid: elfjane\nsn: elfjane\ncn: elfjane\nmail: elfjane@gmail.com\nuserPassword: $(slappasswd -s 1234)" > /etc/openldap/elfjane/elfjane_user.ldif
+echo -e "dn: cn=developers,ou=users,dc=elfjane,dc=com\nobjectClass: posixGroup\ncn: developers\ngidNumber: 1001" > /etc/openldap/elfjane/elfjane_group.ldif
+echo -e "dn: cn=developers,ou=groups,dc=elfjane,dc=com\nobjectClass: posixGroup\ncn: developers\ngidNumber: 1002\nmemberUid: elfjane" > /etc/openldap/elfjane/elfjane_group.ldif
+memberUid: elfjane" > /etc/openldap/elfjane/elfjane_group.ldif
+
+ldapadd -H ldap://localhost:389 -x -D "cn=Manager,dc=elfjane,dc=com" -W -f /etc/openldap/elfjane/elfjane_base.ldif
+ldapadd -H ldap://localhost:389 -x -D "cn=Manager,dc=elfjane,dc=com" -W -f /etc/openldap/elfjane/elfjane_ou.ldif
+ldapdelete -x -D "cn=Manager,dc=elfjane,dc=com" -W "uid=elfjane,ou=users,dc=elfjane,dc=com"
+ldapadd -H ldap://localhost:389 -x -D "cn=Manager,dc=elfjane,dc=com" -W -f /etc/openldap/elfjane/elfjane_user.ldif
+ldapdelete -x -D "cn=Manager,dc=elfjane,dc=com" -W "ou=group,dc=elfjane,dc=com"
+ldapadd -H ldap://localhost:389 -x -D "cn=Manager,dc=elfjane,dc=com" -W -f /etc/openldap/elfjane/elfjane_group.ldif
+ldapsearch -x -b "dc=elfjane,dc=com" "(objectclass=*)"
+
+
+dn: olcDatabase={2}mdb,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcMdbConfig
+olcDatabase: {2}mdb
+olcSuffix: dc=elfjane,dc=com
+olcRootDN: cn=Manager,dc=elfjane,dc=com
+olcRootPW: {SSHA}O+JQx3/n8kuGoXiLzYPiK3c5WAzOm0iS
+olcDbDirectory: /var/lib/ldap/elfjane
+olcDbIndex: objectClass eq
+
+Server:
+ldap://172.16.101.107:389
+dc=elfjane,dc=com
+ou=groups
+Group search filter:
+uid={0}
+
+
+DC=online,DC=mypi,DC=com
+ldap://172.16.6.2:389

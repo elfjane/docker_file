@@ -1,0 +1,7 @@
+dn: uid=elfjane,ou=users,dc=elfjane,dc=com
+objectClass: inetOrgPerson
+uid: elfjane
+sn: elfjane
+cn: elfjane
+mail: elfjane@gmail.com
+userPassword: {SSHA}Nlul05tcT67ZptmOuKYpa5CrxaCP+6rN

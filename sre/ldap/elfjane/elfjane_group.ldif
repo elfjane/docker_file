@@ -1,0 +1,4 @@
+dn: cn=developers,ou=groups,dc=elfjane,dc=com
+objectClass: posixGroup
+cn: developers
+gidNumber: 1001

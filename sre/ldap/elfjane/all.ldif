@@ -1,0 +1,11 @@
+dn: dc=elfjane,dc=com
+objectClass: top
+objectClass: domain
+dc: elfjane
+dn: ou=users,dc=elfjane,dc=com
+objectClass: organizationalUnit
+ou: users
+dn: dc=elfjane,dc=com
+objectClass: top
+objectClass: domain
+dc: elfjane
