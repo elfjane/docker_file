@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile    
+    restart: always
+    volumes:
+      - "./html:/var/www/html"
+      # - "~/html/storage:/var/www/html/storage" # 若需要掛載 storage，請解除註解
+    depends_on:
+      - db      
+    networks:
+      - laravel_12
+
+  db:
+    image: mariadb:10.11.13-ubi9
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+    volumes:
+      - laravel12_db_data:/var/lib/mysql
+    ports:
+      - "3506:3306"
+    networks:
+      - laravel_12
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "8203:80"
+    volumes:
+      - "./html:/var/www/html"
+      - "./default.conf:/etc/nginx/conf.d/default.conf"
+      - "laravel12_nginx_data:/var/log/nginx/error"
+      - "laravel12_nginx_data:/var/log/nginx/access"
+    depends_on:
+      - php
+    networks:
+      - laravel_12
+
+volumes:
+  laravel12_db_data:
+  laravel12_nginx_data:
+
+networks:
+  laravel_12:
