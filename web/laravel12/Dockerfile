@@ -10,6 +10,7 @@ RUN apt-get update && \
         git \
         zip \
         unzip \
+        iputils-ping \
         apt-utils \
         libpq-dev \
         libpng-dev \
@@ -17,10 +18,10 @@ RUN apt-get update && \
         libfreetype6-dev \
         libonig-dev \
         libzip-dev \
+        libssl-dev \
         python3 \
         python3-pip && \
-    ln -s /usr/bin/python3 /usr/bin/python && \
-    rm -rf /var/lib/apt/lists/*
+    ln -s /usr/bin/python3 /usr/bin/python
 
 # 安裝 PHP 擴充模組
 RUN docker-php-ext-install \
@@ -33,6 +34,12 @@ RUN docker-php-ext-install \
         pgsql \
         pdo_pgsql
 
+# 安裝 Redis 擴展
+RUN apt-get install -y \
+    libssl-dev \
+    && pecl install redis \
+    && docker-php-ext-enable redis
+
 # GD 圖片處理（可選）
 RUN docker-php-ext-configure gd \
     --with-freetype \
@@ -43,6 +50,9 @@ COPY ./composer /usr/local/bin/composer
 
 RUN composer global require laravel/installer && \
     echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> /root/.bashrc
+    
+# install laravel installer    
+RUN composer global require laravel/installer    
 
 # 安裝 nvm & Node.js
 ENV BASH_ENV=/root/.bash_env
@@ -55,11 +65,16 @@ RUN touch "$BASH_ENV" && \
     nvm install 12.22.12 && \
     nvm install 8.17.0 && \
     nvm alias default node
+    
+RUN apt-get install -y --no-install-recommends \    
+    iputils-ping
+    
+RUN rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
 
 # 可選：將 Laravel 專案 copy 進容器
-# COPY . /var/www/html
+# COPY ./html /var/www/html
 
 # 可選：設定權限
 # RUN chmod -R 775 storage bootstrap/cache
