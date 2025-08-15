@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Opool\Adapter;
+namespace App\Database\OpoolDriver\Adapter;
 
-use App\Opool\Exception\OpoolException;
-use App\Opool\OPoolConnection;
-use App\Opool\OpoolConnFactory;
-use App\Opool\OPoolFunc\FuncBase;
+use App\Database\OpoolDriver\Exception\OpoolException;
+use App\Database\OpoolDriver\OPoolConnection;
+use App\Database\OpoolDriver\OpoolConnFactory;
+use App\Database\OpoolDriver\OPoolFunc\FuncBase;
 use PCPay\API\Entities\EntityBase;
 use RuntimeException;
 
@@ -13,7 +13,7 @@ use RuntimeException;
  * Class OpoolAdapter
  * @package PCPay\PrvtAPI\Database\Adapter
  */
-class OpoolAdapter implements IdbAdapter
+class OpoolAdapter implements OpoolAdapterInterface
 {
     /** @var OPoolAdapter $instance */
     private static $instance;
@@ -103,7 +103,7 @@ class OpoolAdapter implements IdbAdapter
      */
     public function select($sql, array $binds, $timeout = 0, $page = null, $rowsPerPage = 10)
     {
-        $connection = $this->factory->getAVLConn();
+        $connection = $this->factory->getOpoolConn();
 
         try {
 
@@ -141,10 +141,10 @@ class OpoolAdapter implements IdbAdapter
      */
     public function selectFirst($sql, array $binds, $timeout = 0)
     {
-        $connection = $this->factory->getAVLConn();
+        $connection = $this->factory->getOpoolConn();
 
         try {
-            $this->bindParams($binds, $connection);
+            $this->bindParams( $binds, $connection);
 
             $sql = $this->buildFuncSql($sql, $binds);
 
@@ -229,39 +229,43 @@ class OpoolAdapter implements IdbAdapter
     }
 
     /**
-     * @param EntityBase $entity
+     * @param string $tableName
+     * @param array $data
      * @param int $timeout
      * @param null $tableSchema
      * @return mixed
      * @throws \Exception
      */
-    public function insert(EntityBase $entity, $timeout = 0, $tableSchema = null)
+    public function insert($tableName, array $data, $timeout = 0, $tableSchema = null)
     {
-        $connection = $this->factory->getAVLConn();
+        $connection = $this->factory->getOpoolConn();
 
         try {
-
-            $tableName = $entity->getTableName();
-            $binds = $entity->toArray();
-
-            $bounds = [];
-            foreach ($binds as $fieldName => $value) {
-                $bounds[$fieldName] = $this->convertCondition($fieldName, $value);
-            }
-
-            $fieldNames = array_keys($binds);
-            $fields = '( ' . implode(' ,', $fieldNames) . ' )';
-
+            $columns = array_keys($data);
+            $placeholders = array_map(fn($col) => ":{$col}", $columns);
             if ($tableSchema !== null) {
                 $sql = "INSERT INTO {$tableSchema}.{$tableName}";
             } else {
                 $sql = "INSERT INTO {$tableName}";
             }
+            $sql .= " (" . implode(', ', $columns) . ")
+                    VALUES (" . implode(', ', $placeholders) . ")";
+            // $binds = $entity->toArray();
 
-            $bound = '(' . implode(', ', $bounds) . ')';
-            $sql .= $fields . ' VALUES ' . $bound;
+            // $bounds = [];
+            // foreach ($binds as $fieldName => $value) {
+            //     $bounds[$fieldName] = $this->convertCondition($fieldName, $value);
+            // }
 
-            $this->bindParams($binds, $connection);
+            // $fieldNames = array_keys($data);
+            // $fields = '( ' . implode(' ,', $fieldNames) . ' )';
+
+
+
+            // $bound = '(' . implode(', ', $bounds) . ')';
+            // $sql .= $fields . ' VALUES ' . $bound;
+
+            $this->bindParams($data, $connection);
 
             $connection->query($sql, $timeout);
 
@@ -285,7 +289,7 @@ class OpoolAdapter implements IdbAdapter
      */
     public function update(EntityBase $entity, $timeout = 0, $tableSchema = null, ?Array $checkFields = null)
     {
-        $connection = $this->factory->getAVLConn();
+        $connection = $this->factory->getOpoolConn();
 
         try {
 
@@ -362,7 +366,7 @@ class OpoolAdapter implements IdbAdapter
     public function insertBatch($table, $values, $timeout = 0)
     {
         try {
-            $connection = $this->factory->getAVLConn();
+            $connection = $this->factory->getOpoolConn();
 
             $sql = "";
 
@@ -407,7 +411,7 @@ class OpoolAdapter implements IdbAdapter
      */
     public function execute($sql, array $binds, $timeout = 0)
     {
-        $connection = $this->factory->getAVLConn();
+        $connection = $this->factory->getOpoolConn();
 
         try {
 
@@ -436,7 +440,7 @@ class OpoolAdapter implements IdbAdapter
     public function nativeExecute($sql, $timeout = 0)
     {
         try {
-            $connection = $this->factory->getAVLConn();
+            $connection = $this->factory->getOpoolConn();
             $connection->query($sql, $timeout);
 
             $affectedRows = $connection->getAffectedRows();
@@ -461,7 +465,7 @@ class OpoolAdapter implements IdbAdapter
     public function nativeSelect($sql, $timeout = 0)
     {
         try {
-            $connection = $this->factory->getAVLConn();
+            $connection = $this->factory->getOpoolConn();
 
             $result = $connection->queryAll($sql);
 
@@ -484,7 +488,7 @@ class OpoolAdapter implements IdbAdapter
     public function nativeSelectFirst($sql, $timeout = 0)
     {
         try {
-            $connection = $this->factory->getAVLConn();
+            $connection = $this->factory->getOpoolConn();
 
             $result = $connection->queryFirst($sql);
 
@@ -511,7 +515,7 @@ class OpoolAdapter implements IdbAdapter
             ppDebug($sql);
             ppDebug($binds);
 
-            $connection = $this->factory->getAVLConn();
+            $connection = $this->factory->getOpoolConn();
 
             //bind array
             if ($binds && is_array($binds)) {
@@ -540,7 +544,7 @@ class OpoolAdapter implements IdbAdapter
     public function startTransaction()
     {
         try {
-            $connection = $this->factory->getAVLConn();
+            $connection = $this->factory->getOpoolConn();
             $connection->setCommitOff();
         } catch (OpoolException $exception) {
             $this->factory->close($connection);
@@ -554,7 +558,7 @@ class OpoolAdapter implements IdbAdapter
     public function commit()
     {
         try {
-            $connection = $this->factory->getAVLConn();
+            $connection = $this->factory->getOpoolConn();
             $connection->commit();
         } catch (OpoolException $exception) {
             $this->factory->close($connection);
@@ -568,7 +572,7 @@ class OpoolAdapter implements IdbAdapter
     public function rollback()
     {
         try {
-            $connection = $this->factory->getAVLConn();
+            $connection = $this->factory->getOpoolConn();
             $connection->rollback();
         } catch (OpoolException $exception) {
             $this->factory->close($connection);

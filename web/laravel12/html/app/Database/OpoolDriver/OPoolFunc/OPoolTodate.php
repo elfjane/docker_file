@@ -1,9 +1,9 @@
 <?php
 
-namespace PCPay\API\Database\OPool\OPoolFunc;
+namespace App\Database\OpoolDriver\OPoolFunc;
 
 
-class OPoolTodate extends FuncBase
+class OPoolTodate extends OPoolFuncBase
 {
     public function __construct($datestr, $format="YYYY/MM/DD HH24:MI:SS")
     {

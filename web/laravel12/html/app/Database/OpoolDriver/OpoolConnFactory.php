@@ -1,13 +1,13 @@
 <?php
 /**
- * Author: Eric G. Huang
- * Date Time: 3/15/16 5:42 PM
+ * Author: elfjane
+ * Date Time: 2025/8/12 17:08
  */
 
-namespace App\Opool;
+namespace App\Database\OpoolDriver;
 
-use App\OPool\Enums\OpoolCommitStateEnum;
-use App\OPool\Exception\OpoolException;
+use App\Database\OpoolDriver\Enums\OpoolCommitStateEnum;
+use App\Database\OpoolDriver\Exception\OpoolException;
 
 class OpoolConnFactory
 {
@@ -49,7 +49,6 @@ class OpoolConnFactory
     private $connList = [];  //目前可用的連線
     private $envStr;
     private $envSettingList = [];
-    private $connIdxSeed;
 
     public function __construct($envStr = null, $errordo = "")
     {
@@ -57,7 +56,6 @@ class OpoolConnFactory
             throw new \InvalidArgumentException('should set db ip and port');
         }
 
-        $this->connIdxSeed = rand(0, 100);
         $this->setEnv($envStr, $errordo);
     }
 
@@ -84,7 +82,7 @@ class OpoolConnFactory
     /**
      * using old connection if available, else create a new one
      */
-    public function getAVLConn()
+    public function getOpoolConn()
     {
         /**
          * @var $conn OPoolConnection

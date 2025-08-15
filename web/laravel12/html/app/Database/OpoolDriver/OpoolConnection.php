@@ -1,13 +1,13 @@
 <?php
 /**
- * Author: Eric G. Huang
- * Date Time: 3/15/16 5:46 PM
+ * Author: elfjane
+ * Date Time: 2025/8/12 17:08
  */
 
-namespace App\Opool;
+namespace App\Database\OpoolDriver;
 
-use App\Opool\Enums\OpoolCommitStateEnum;
-use App\Opool\Exception\OpoolException;
+use App\Database\OpoolDriver\Enums\OpoolCommitStateEnum;
+use App\Database\OpoolDriver\Exception\OpoolException;
 
 class OpoolConnection
 {
@@ -167,11 +167,7 @@ class OpoolConnection
     {
         $desc = ($this->description) ? ("/* " . $this->description . " */ ") : "";
         if (!$desc && !$this->bindinfo) {
-            if (isset($argv[0])) {
-                $desc .= "/*" . $argv[0] . "*/ ";
-            } else {
-                $desc .= "/*" . $_SERVER["SCRIPT_NAME"] . "*/ ";
-            }
+            $desc .= "/*" . $_SERVER["SCRIPT_NAME"] . "*/ ";
         }
 
         $sql = $this->bindinfo . $desc . $sql . OpoolCommitStateEnum::SQL_INPUT;
@@ -419,7 +415,7 @@ class OpoolConnection
         if (!empty($result) && is_array($result)) {
             return $result;
         } else {
-            return null;
+            return [];
         }
     }
 

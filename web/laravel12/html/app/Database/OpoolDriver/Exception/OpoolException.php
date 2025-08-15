@@ -1,10 +1,10 @@
 <?php
 /**
- * Author: Eric G. Huang
- * Date Time: 3/15/16 6:02 PM
+ * Author: elfjane
+ * Date Time: 2025/8/12 17:08
  */
 
-namespace App\Opool\Exception;
+namespace App\Database\OpoolDriver\Exception;
 
 class OpoolException extends \RuntimeException
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Opool;
 
 use Exception;
-use App\Models\Dao\OpoolDaoBase;
+use App\Database\OpoolDriver\OpoolOrm;
 
 
-class PayOrderDAO extends OpoolDaoBase
+class PayOrder extends OpoolOrm
 {
-    private $table = 'PAY_ORDER';
+    protected $table = 'PAY_ORDER';
 
     /**
      * @param $orderId

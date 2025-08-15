@@ -1,9 +1,9 @@
 <?php
 
-namespace PCPay\API\Database\OPool\OPoolFunc;
+namespace App\Database\OpoolDriver\OPoolFunc;
 
 
-class OPoolSysdate extends FuncBase
+class OPoolSysdate extends OPoolFuncBase
 {
     //private $days;
     private $isTrunc;

@@ -1,10 +1,10 @@
 <?php
 /**
- * Author: Eric G. Huang
- * Date Time: 3/15/16 5:48 PM
+ * Author: elfjane
+ * Date Time: 2025/8/12 17:08
  */
 
-namespace App\Opool\Enums;
+namespace App\Database\OpoolDriver\Enums;
 
 abstract class OpoolCommitStateEnum
 {

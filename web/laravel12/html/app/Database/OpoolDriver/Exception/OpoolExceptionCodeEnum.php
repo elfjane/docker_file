@@ -1,10 +1,10 @@
 <?php
 /**
- * Author: Eric G. Huang
- * Date Time: 3/20/16 10:31 AM
+ * Author: elfjane
+ * Date Time: 2025/8/12 17:08
  */
 
-namespace App\Opool\Exception;
+namespace App\Database\OpoolDriver\Exception;
 
 abstract class OpoolExceptionCodeEnum
 {

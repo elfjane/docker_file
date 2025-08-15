@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Models\Dao;
+namespace App\Database\OpoolDriver;
 
-use App\Opool\Adapter\IDbAdapter;
-use App\Opool\Adapter\OpoolAdapter;
+use App\Database\OpoolDriver\Adapter\OpoolAdapterInterface;
+use App\Database\OpoolDriver\Adapter\OpoolAdapter;
 use PCPay\API\Entities\EntityBase;
 
-abstract class OpoolDaoBase
+abstract class OpoolOrmDao
 {
     /** @var mixed|OpoolAdapter  */
     public $dbAdpt;
 
     /**
-     * OPoolDAOBase constructor.
-     * @param IDbAdapter|null $dbAdpt
+     * OpoolOrm constructor.
+     * @param OpoolAdapterInterface|null $dbAdpt
      */
-    public function __construct(IDbAdapter $dbAdpt = null)
+    public function __construct(OpoolAdapterInterface $dbAdpt = null)
     {
         $this->dbAdpt = $dbAdpt ?: OpoolAdapter::getInstance();
     }
@@ -25,12 +25,22 @@ abstract class OpoolDaoBase
      * @return mixed
      * @throws \Exception
      */
-    public function insert(EntityBase $entity)
+    public function getTable()
     {
-        $affectedRows = $this->dbAdpt->insert($entity);
-
-        return $affectedRows;
+        return $this->table;
     }
+
+    // /**
+    //  * @param array $entity
+    //  * @return mixed
+    //  * @throws \Exception
+    //  */
+    // public function insert(array $entity)
+    // {
+    //     $affectedRows = $this->dbAdpt->insert($entity);
+
+    //     return $affectedRows;
+    // }
 
     /**
      * @param EntityBase $entity

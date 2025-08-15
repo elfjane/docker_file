@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Opool\Adapter;
+namespace App\Database\OpoolDriver\Adapter;
 
 use PCPay\API\Entities\EntityBase;
 
-interface IdbAdapter
+interface OpoolAdapterInterface
 {
     public function select($sql, array $binds, $timeout = 0);
     public function selectFirst($sql, array $binds, $timeout = 0);
-    public function insert(EntityBase $entity, $timeout = 0);
+    public function insert($tableName, array $entity, $timeout = 0);
     public function update(EntityBase $entity, $timeout = 0);
     public function insertBatch($table, $values, $timeout = 0);
     public function execute($sql, array $binds, $timeout = 0);
