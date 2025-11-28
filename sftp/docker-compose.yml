@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  sftp:
+    image: atmoz/sftp:latest
+    container_name: sftp-server
+    restart: always
+    ports:
+      - "9191:22"  # 對外映射: host 的 2222 → container 的 22
+    volumes:
+      # 左邊是主機路徑，右邊是容器內掛載的目錄
+     - C:/EINVTurnkey_320/UpCast/B2SSTORAGE:/home/pp
+     - C:/EINVTurnkey_320/UpCast/B2SSTORAGE:/home/pp/var/tmp/pi_invoice_path
+     
+    environment:
+      # 格式: 使用者:密碼:UID:GID:子目錄
+      - SFTP_USERS=pp:12345:1001
