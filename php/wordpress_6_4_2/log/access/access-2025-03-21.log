@@ -1,0 +1,8 @@
+127.0.0.1 - - [21/Mar/2025:09:44:45 +0000] "POST /api/sentry.php?key_id=11&sentry_key=471822ac15b54ce0b88906780e7f8cf7&sentry_version=7 HTTP/1.0" 200 167 "-" "PostmanRuntime/7.43.2"
+172.30.0.1 - - [21/Mar/2025:09:44:45 +0000] "POST /api/11/store/?sentry_key=471822ac15b54ce0b88906780e7f8cf7&sentry_version=7 HTTP/1.0" 200 167 "-" "PostmanRuntime/7.43.2"
+127.0.0.1 - - [21/Mar/2025:09:44:57 +0000] "POST /api/sentry.php?key_id=11&sentry_key=471822ac15b54ce0b88906780e7f8cf7&sentry_version=7 HTTP/1.0" 200 16 "-" "PostmanRuntime/7.43.2"
+172.30.0.1 - - [21/Mar/2025:09:44:57 +0000] "POST /api/11/store/?sentry_key=471822ac15b54ce0b88906780e7f8cf7&sentry_version=7 HTTP/1.0" 200 16 "-" "PostmanRuntime/7.43.2"
+172.30.0.1 - - [21/Mar/2025:09:46:03 +0000] "GET /favicon.ico HTTP/1.0" 404 555 "https://error.pchomepay.com.tw/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+172.30.0.1 - - [21/Mar/2025:09:46:12 +0000] "GET / HTTP/1.0" 403 555 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+172.30.0.1 - - [21/Mar/2025:09:46:21 +0000] "GET / HTTP/1.0" 403 153 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0"
+172.30.0.1 - - [21/Mar/2025:09:46:21 +0000] "GET /favicon.ico HTTP/1.0" 404 153 "https://error.pchomepay.com.tw/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0"

@@ -1,0 +1,39 @@
+version: '3.3'
+
+networks:
+  pchomepay-wordpress:  # 定義網路
+
+services:
+  wordpress_mysql:
+    image: mysql:8.0
+    container_name: wordpress_mysql
+    restart: always
+    ports:
+      - "3806:3306"
+    networks:
+      - pchomepay-wordpress  # 網路配置使用這個網路
+    environment:
+      MYSQL_DATABASE: ${WORDPRESS_MYSQL_DATABASE}
+      MYSQL_USER: ${WORDPRESS_MYSQL_USER}
+      MYSQL_PASSWORD: ${WORDPRESS_MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${WORDPRESS_MYSQL_PASSWORD}
+    volumes:
+      - "${WORDPRESS_MYSQL}:/var/lib/mysql"  # 持久化數據，確保 MySQL 數據不會丟失
+
+  wordpress:
+    build: build
+    restart: always
+    networks:
+      - pchomepay-wordpress  # 網路配置使用這個網路
+    ports:
+      - "9113:80"
+    environment:
+      MYSQL_DATABASE: ${WORDPRESS_MYSQL_DATABASE}
+      MYSQL_USER: ${WORDPRESS_MYSQL_USER}
+      MYSQL_PASSWORD: ${WORDPRESS_MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${WORDPRESS_MYSQL_PASSWORD}
+    volumes:
+      - "${WORDPRESS_HTML}/:/var/www/html"
+      #- "${WORDPRESS_HTML}/wp-content/plugins/woocommerce:/var/www/html/wp-content/plugins/woocommerce"      
+    depends_on:
+      - wordpress_mysql  # 確保在 wordpress 服務啟動前啟動 mysql
