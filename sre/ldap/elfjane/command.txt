@@ -35,3 +35,13 @@ uid={0}
 
 DC=online,DC=mypi,DC=com
 ldap://172.16.6.2:389
+
+
+# 變更密碼
+ldappasswd -x -D "cn=Manager,dc=elfjane,dc=com" -W -S "uid=elfjane,ou=users,dc=elfjane,dc=com"
+
+# 密碼產生
+slappasswd
+
+新增帳號指令
+ldapadd -x -D "cn=Manager,dc=elfjane,dc=com" -W -f elfjane1.ldif

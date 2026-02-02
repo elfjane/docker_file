@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    restart: always
+    restart: no
     volumes:
       - "./html:/var/www/html"
       # - "~/html/storage:/var/www/html/storage" # 若需要掛載 storage，請解除註解
@@ -31,7 +31,7 @@ services:
 
   phpredis:
     image: redis:alpine
-    restart: always
+    restart: no
     #ports:
     #  - "6379:6379"
     networks:
@@ -39,7 +39,7 @@ services:
 
   nginx:
     image: nginx:latest
-    restart: always
+    restart: no
     ports:
       - "8203:80"
     volumes:
